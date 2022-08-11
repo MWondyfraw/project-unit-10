@@ -12,7 +12,7 @@ import UpdateCourse from "./components/UpdateCourse";
 import Header from "./components/Header";
 import UserSignOut from "./components/UserSignOut";
 import NotFound from "./components/NotFound";
-import PrivateRoute from "./PrivateRoute";
+//import PrivateRoute from "./PrivateRoute";
 import withContext from "./Context";
 
 const UserSignUpWithContext = withContext(UserSignUp);
