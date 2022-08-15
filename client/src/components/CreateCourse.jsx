@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-export default function CreateCourse({ context, history }) {
+export default function CreateCourse() {
   let [errors, setErrors] = useState([]);
   let [title, setTitle] = useState("");
   let [estimatedTime, setEstimatedTime] = useState("");
@@ -26,7 +26,7 @@ export default function CreateCourse({ context, history }) {
           setErrors(errors);
         } else {
           history.push("/");
-          console.log("course created!!");
+          console.log("course created");
         }
       })
       .catch((err) => {
@@ -73,16 +73,8 @@ export default function CreateCourse({ context, history }) {
                 onChange={(e) => setDescription(e.target.value)}
                 value={description}
               ></textarea>
-
-              <label htmlFor="estimatedTime">Estimated Time</label>
-              <input
-                id="estimatedTime"
-                name="estimatedTime"
-                type="text"
-                value={estimatedTime}
-                onChange={(e) => setEstimatedTime(e.target.value)}
-              />
-
+            </div>
+            <div>
               <label htmlFor="estimatedTime">Estimated Time</label>
               <input
                 id="estimatedTime"
@@ -101,6 +93,9 @@ export default function CreateCourse({ context, history }) {
               />
             </div>
           </div>
+          <button className="button" type="submit" onClick={handleSubmit}>
+            Create Course
+          </button>
           <button
             className="button button-secondary"
             onClick={() => history.push("/")}

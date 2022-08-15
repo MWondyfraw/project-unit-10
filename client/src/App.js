@@ -13,16 +13,16 @@ import Header from "./components/Header";
 import UserSignOut from "./components/UserSignOut";
 import NotFound from "./components/NotFound";
 //import PrivateRoute from "./PrivateRoute";
-import withContext from "./Context";
+import useContext from "./Context";
 
-const UserSignUpWithContext = withContext(UserSignUp);
-const UserSignInWithContext = withContext(UserSignIn);
-const UserSignOutWithContext = withContext(UserSignOut);
-const HeaderWithContext = withContext(Header);
-const CoursesWithContext = withContext(Courses);
-const CourseDetailWithContext = withContext(CourseDetail);
-const UpdateCourseWithContext = withContext(UpdateCourse);
-const CreateCourseWithContext = withContext(CreateCourse);
+const UserSignUpWithContext = useContext(UserSignUp);
+const UserSignInWithContext = useContext(UserSignIn);
+const UserSignOutWithContext = useContext(UserSignOut);
+const HeaderWithContext = useContext(Header);
+const CoursesWithContext = useContext(Courses);
+const CourseDetailWithContext = useContext(CourseDetail);
+const UpdateCourseWithContext = useContext(UpdateCourse);
+const CreateCourseWithContext = useContext(CreateCourse);
 
 export default () => (
   <Router>
