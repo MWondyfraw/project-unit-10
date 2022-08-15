@@ -42,7 +42,7 @@ export default function UserSignIn() {
       <div className="form-centered">
         <h2>Sign In</h2>
         {errors.length > 0 && <ErrorsDisplay errors={errors} />}
-        <form onSubmit={subumit}>
+        <form onSubmit={submit}>
           <label htmlFor="emailAddress">Email Address</label>
           <input
             id="emailAddress"

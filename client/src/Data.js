@@ -27,7 +27,7 @@ export default class Data {
       );
       options.headers["Authorization"] = `Basic ${encodedCredentials}`;
     }
-    return fetch(url, options);
+    //return fetch(url, options);
   }
   // Create a getUser async function
 

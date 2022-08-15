@@ -15,8 +15,8 @@ export default function Courses({ context }) {
         }
       })
       .catch((err) => {
-        console.log(err);
-        history.push("/error");
+        // console.log(err);
+        // history.push("/error");
       });
   }, []);
 
