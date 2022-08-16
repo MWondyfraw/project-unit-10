@@ -26,9 +26,7 @@ const CreateCourseWithContext = useContext(CreateCourse);
 
 export default () => (
   <Router>
-    <div>
       <HeaderWithContext />
-
       <Switch>
         <Route exact path="/" component={CoursesWithContext} />
         <PrivateRoute
@@ -45,6 +43,6 @@ export default () => (
         <Route path="/signout" component={UserSignOutWithContext} />
         <Route component={NotFound} />
       </Switch>
-    </div>
+    
   </Router>
 );

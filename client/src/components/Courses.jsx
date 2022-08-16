@@ -1,7 +1,6 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
 export default function Courses({ context }) {
   const [errors, setErrors] = useState([]);
   useEffect(() => {
@@ -9,14 +8,16 @@ export default function Courses({ context }) {
       .allCourses()
       .then((courses) => {
         if (courses === null) {
-          setErrors(() => ["No Course Found!!"]);
+          setErrors(() => ["No Course Found!"]);
         } else {
+          // history.push(from);
+          // setCourses(courses);
           console.log(`courses retrieved successfully!`);
         }
       })
       .catch((err) => {
-        // console.log(err);
-        // history.push("/error");
+        console.log(err);
+        history.push("/error");
       });
   }, []);
 
@@ -30,12 +31,12 @@ export default function Courses({ context }) {
             key={course.id}
           >
             <h2 className="course--label">Course</h2>
-            <h3 className="course-title">{course.title}</h3>
+            <h3 className="course--title">{course.title}</h3>
           </Link>
         ))}
 
         <Link
-          className="courses--module course--add--moudle"
+          className="course--module course--add--module"
           to={"/courses/create"}
         >
           <span className="course--add--title">
@@ -47,9 +48,8 @@ export default function Courses({ context }) {
               viewBox="0 0 13 13"
               className="add"
             >
-              <polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6"></polygon>
-            </svg>
-            {""}
+              <polygon points="7,6 7,0 6,0 6,6 0,6 0,7 6,7 6,13 7,13 7,7 13,7 13,6 "></polygon>
+            </svg>{" "}
             New Course
           </span>
         </Link>

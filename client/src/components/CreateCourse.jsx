@@ -1,16 +1,19 @@
 import React, { useState } from "react";
 
-export default function CreateCourse() {
-  let [errors, setErrors] = useState([]);
-  let [title, setTitle] = useState("");
-  let [estimatedTime, setEstimatedTime] = useState("");
-  let [materialsNeeded, setMaterialsNeeded] = useState("");
-  let [description, setDescription] = useState("");
+export default function CreateCourse({ context, history }) {
+  const [errors, setErrors] = useState([]);
+  const [title, setTitle] = useState("");
+  const [estimatedTime, setEstimatedTime] = useState("");
+  const [materialsNeeded, setMaterialsNeeded] = useState("");
+  const [description, setDescription] = useState("");
 
   const { id, emailAddress, firstName, lastName, password } =
     context.authenticatedUser;
 
   const handleSubmit = (e) => {
+    // const { context } = this.props;
+    // const { name, username, password } = this.state;
+    // New user payload
     e.preventDefault();
     const course = {
       userId: id,
@@ -25,13 +28,17 @@ export default function CreateCourse() {
         if (errors.length) {
           setErrors(errors);
         } else {
+          // console.log(
+          //   `${username} is successfully signed up and authenticated!`
+          // );
           history.push("/");
-          console.log("course created");
+          console.log("course created !");
         }
       })
       .catch((err) => {
+        // handle rejected promises
         console.log(err);
-        history.push("/error");
+        // history.push("/error"); // push to history stack
       });
   };
 
@@ -40,16 +47,17 @@ export default function CreateCourse() {
       <div className="wrap">
         <h2>Create Course</h2>
         {errors.length > 0 ? (
-          <div className="validation-errors">
+          <div className="validation--errors">
             <h3>Validation Errors</h3>
             <ul>
+              {/* <li>Please provide a value for "Title"</li>
+            <li>Please provide a value for "Description"</li> */}
               {errors.map((error, i) => (
                 <li key={i}>{error}</li>
               ))}
             </ul>
           </div>
         ) : null}
-
         <form>
           <div className="main--flex">
             <div>
@@ -63,7 +71,7 @@ export default function CreateCourse() {
               />
 
               <p>
-                By{firstName} {lastName}
+                By {firstName} {lastName}
               </p>
 
               <label htmlFor="courseDescription">Course Description</label>
@@ -98,7 +106,7 @@ export default function CreateCourse() {
           </button>
           <button
             className="button button-secondary"
-            onClick={() => history.push("/")}
+            onClick={(event) => event.preventDefault()}
           >
             Cancel
           </button>

@@ -4,7 +4,7 @@
 const express = require("express");
 const morgan = require("morgan");
 const { sequelize } = require("./models/index");
-
+const cors = require("cors");
 const users = require("./routes/users");
 const courses = require("./routes/courses");
 
@@ -14,11 +14,12 @@ const enableGlobalErrorLogging =
 
 // create the Express app
 const app = express();
+app.use(cors());
 
 // setup morgan which gives us http request logging
 app.use(morgan("dev"));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 
 // Test the database connection
 (async () => {
@@ -60,8 +61,6 @@ app.use((err, req, res, next) => {
     error: {},
   });
 });
-
-
 
 // set our port
 app.set("port", process.env.PORT || 5000);

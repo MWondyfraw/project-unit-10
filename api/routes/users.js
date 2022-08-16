@@ -26,25 +26,30 @@ const authenticateUser = async (req, res, next) => {
   let message = null;
   const credentials = auth(req);
   if (credentials) {
-    const user = await User.findAll({
+    const user = await User.findOne({
       raw: true,
       where: { emailAddress: credentials.name },
     });
-  
-    if (user[0]) {
-       const authenticated = await bcrypt.compare(
+    if (user) {
+      const authenticated = await bcrypt.compare(
         credentials.pass,
-        user[0].password
+        user.password
       );
-    
+
+
+      console.log(user);
+      console.log(user.password, credentials.pass);
+      console.log(authenticated);
+
       // If the passwords match
       if (authenticated) {
         console.log(
-          `Authentication successful for username: ${user[0].emailAddress}`
+          `Authentication successful for username: ${user.emailAddress}`
         );
-        req.currentUser = user[0];
+
+        req.currentUser = user;
       } else {
-        message = `Authentication failure for username: ${user[0].emailAddress}`;
+        message = `Authentication failure for username: ${user.emailAddress}`;
       }
     } else {
       message = `User not found for username: ${credentials.name}`;
@@ -67,7 +72,7 @@ const authenticateUser = async (req, res, next) => {
 
 router.get(
   "/",
-   authenticateUser,
+  authenticateUser,
   asyncHandler(async (req, res) => {
     res.status(200).json(req.currentUser);
   })

@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
+
 import ErrorsDisplay from "./ErrorsDisplay";
 
-export default function UserSignIn() {
+export default function UserSingIn({ location, history, context }) {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
 
   const submit = (event) => {
     event.preventDefault();
@@ -15,31 +16,28 @@ export default function UserSignIn() {
     };
 
     context.actions
-      .signIn(emailAddress, passowrd)
+      .signIn(emailAddress, password)
       .then((user) => {
         if (user === null) {
-          setErrors(() => ["Sign-in was not successful"]);
+          setErrors(() => ["Sign-in was unsuccessful"]);
         } else {
           history.push(from);
-          console.log(`SUCCESS! ${emailAddress} is now signed in`);
+          console.log(`SUCCESS! ${emailAddress} is now signed in!`);
         }
       })
-      // Catch an error thrown by api
-      // To display error message
-
       .catch((err) => {
         console.log(err);
-        history.push("/error");
+        // history.push("/error");
       });
   };
 
   const cancel = () => {
-    history.push("/error");
+    history.push("/");
   };
 
   return (
     <main>
-      <div className="form-centered">
+      <div className="form--centered">
         <h2>Sign In</h2>
         {errors.length > 0 && <ErrorsDisplay errors={errors} />}
         <form onSubmit={submit}>
@@ -51,7 +49,6 @@ export default function UserSignIn() {
             value={emailAddress}
             onChange={(e) => setEmailAddress(e.target.value)}
           />
-
           <label htmlFor="password">Password</label>
           <input
             id="password"
@@ -60,21 +57,19 @@ export default function UserSignIn() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-
           <button className="button" type="submit">
             Sign In
           </button>
-
           <button
             className="button button-secondary"
-            onClick={(e) => event.preventDefault()}
+            onClick={(event) => event.preventDefault()}
           >
             Cancel
           </button>
         </form>
         <p>
-          Do you have an account ? Click here to {""}
-          <Link to={"/signup"}>Sign UP</Link>
+          Don't have a user account ? Click here to{" "}
+          <Link to={"/signup"}>sign up</Link> !
         </p>
       </div>
     </main>

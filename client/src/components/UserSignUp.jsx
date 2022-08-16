@@ -1,9 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { useContext } from "react/cjs/react.production.min";
 import ErrorsDisplay from "./ErrorsDisplay";
 
-export default function UserSignUp() {
+export default function UserSignUp({context, history}) {
   const [errors, setErrors] = useState([]);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
@@ -12,7 +11,7 @@ export default function UserSignUp() {
 
   // Create a submit function
   // New user
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     const user = {
@@ -21,6 +20,7 @@ export default function UserSignUp() {
       emailAddress,
       password,
     };
+    console.log(user);
 
     context.data
       .createUser(user)
@@ -29,71 +29,69 @@ export default function UserSignUp() {
           setErrors(errors);
         } else {
           context.actions.signIn(emailAddress, password).then(() => {
-            history.pushState("/");
+            history.push("/");
           });
         }
-      })
-
-      .catch((err) => {
+      }).catch((err) => {
         //rejected promises
         console.log(err);
-        history.pushState("/error");
+        history.push("/error");
       });
   };
 
   return (
     <main>
-      <div className="form-centered">
-        <h2>Sign Up</h2>
-        {errors.length > 0 && <ErrorsDisplay errors={errors} />}
-        <form>
-          <label htmlFor="firstName">First Name</label>
-          <input
-            id="firstName"
-            name="firstName"
-            type="text"
-            onChange={(e) => setFirstName(e.target.value)}
-            value={firstName}
-          />
-          <label htmlFor="lastName">Last NAme</label>
-          <input
-            id="lastName"
-            name="lastName"
-            type="text"
-            onChange={(e) => setLastName(e.target.value)}
-            value={lastName}
-          />
-          <label htmlFor="emailAddress">Email Address</label>
-          <input
-            id="emailAddress"
-            name="emailAddress"
-            type="email"
-            onChange={(e) => setEmailAddress(e.target.value)}
-            value={emailAddress}
-          />
-          <label htmlFor="password">Password</label>
-          <input
-            id="password"
-            name="password"
-            type="password"
-            onChange={(e) => setPassword(e.target.value)}
-            value={password}
-          />
-          <button className="button" type="submit" onClick={handleSubmit}>
-            Sign Up
-          </button>
-          <button
-            className="button button-secondary"
-            onClick={(event) => event.preventDefault()}
-          >
-            Cancel
-          </button>
-        </form>
-        <p>
-          Already have an account? Click here to {""}
-          <Link to={"/signin"}>sign in</Link>
-        </p>
-      </div>
-    </main>
+    <div className="form--centered">
+      <h2>Sign Up</h2>
+      {errors.length > 0 && <ErrorsDisplay errors={errors} />}
+      <form>
+        <label htmlFor="firstName">First Name</label>
+        <input
+          id="firstName"
+          name="firstName"
+          type="text"
+          onChange={(e) => setFirstName(e.target.value)}
+          value={firstName}
+        />
+        <label htmlFor="lastName">Last Name</label>
+        <input
+          id="lastName"
+          name="lastName"
+          type="text"
+          onChange={(e) => setLastName(e.target.value)}
+          value={lastName}
+        />
+        <label htmlFor="emailAddress">Email Address</label>
+        <input
+          id="emailAddress"
+          name="emailAddress"
+          type="email"
+          onChange={(e) => setEmailAddress(e.target.value)}
+          value={emailAddress}
+        />
+        <label htmlFor="password">Password</label>
+        <input
+          id="password"
+          name="password"
+          type="password"
+          onChange={(e) => setPassword(e.target.value)}
+          value={password}
+        />
+        <button className="button" type="submit" onClick={handleSubmit}>
+          Sign Up
+        </button>
+        <button
+          className="button button-secondary"
+          onClick={(event) => event.preventDefault()}
+        >
+          Cancel
+        </button>
+      </form>
+      <p>
+        Already have a user account? Click here to{" "}
+        <Link to={"/signin"}>sign in</Link>
+      </p>
+    </div>
+  </main>
   );
 }
