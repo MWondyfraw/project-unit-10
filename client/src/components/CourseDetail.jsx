@@ -3,11 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import Errors from "./Errors";
 import ReactMarkdown from "react-markdown";
 
-export default function CourseDetail() {
+export default function CourseDetail({context}) {
   let [errors, setErrors] = useState([]);
   let [course, setCourse] = useState([]);
 
-  const { emailAddress, passowrd } = context.authenticatedUser;
+  //const { emailAddress, password } = context.authenticatedUser;
   let { id } = useParams();
 
   useEffect(() => {
@@ -18,7 +18,7 @@ export default function CourseDetail() {
         if (courseData === null) {
           setErrors(["No Course Found"]);
         } else {
-          setCourse(courseData);
+          setCourse(courseData[0]);
         }
       } catch (err) {
         console.log(err);
