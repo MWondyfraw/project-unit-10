@@ -37,7 +37,8 @@ export default function CourseDetail({ history, context }) {
   }, []);
 
   // Create a deleteCourse function
-  // Redirect the user back to the home page
+  // The user is authenticated to delete the course
+  // If not, then an error arises
   const handleDelete = async (id) => {
     const user = {
       emailAddress,

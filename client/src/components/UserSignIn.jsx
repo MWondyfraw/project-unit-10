@@ -1,3 +1,5 @@
+// This component renders the "Sign In" screen for existing users
+// The cancel button returns the users to the default route
 import React, { useState } from "react";
 import { useEffect } from "react";
 import { Link } from "react-router-dom";
@@ -8,13 +10,14 @@ export default function UserSingIn({ location, history, context }) {
   const [emailAddress, setEmailAddress] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState([]);
-
+  // Create a submit function
   const submit = (event) => {
     event.preventDefault();
     const { from } = location.state || {
       from: { pathname: "/" },
     };
-
+    // This function performs whether the sign in was successful or not
+    // If there's no emailAddress & password input, then the sign in would be unsuccesful
     context.actions
       .signIn(emailAddress, password)
       .then((user) => {
@@ -62,10 +65,10 @@ export default function UserSingIn({ location, history, context }) {
           </button>
           <button
             className="button button-secondary"
-            onClick={() => history.push('/')}
+            onClick={() => history.push("/")}
           >
             Cancel
-        </button>
+          </button>
         </form>
         <p>
           Don't have a user account ? Click here to{" "}

@@ -1,3 +1,6 @@
+//This component provides the "Create Course" screen to allow a user to create a new course
+//This component renders a "Create Course" button and sends a POST request to the REST API's
+
 import React, { useState } from "react";
 
 export default function CreateCourse({ context, history }) {
@@ -10,6 +13,8 @@ export default function CreateCourse({ context, history }) {
   const { id, emailAddress, firstName, lastName, password } =
     context.authenticatedUser;
 
+  // Create a submit function
+  // Without a title & description input, the submission won't work
   const handleSubmit = (e) => {
     e.preventDefault();
     const course = {
@@ -95,7 +100,7 @@ export default function CreateCourse({ context, history }) {
           </button>
           <button
             className="button button-secondary"
-            onClick={() => history.push('/')}
+            onClick={() => history.push("/")}
           >
             Cancel
           </button>

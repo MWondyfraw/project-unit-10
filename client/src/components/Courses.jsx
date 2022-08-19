@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 export default function Courses({ context }) {
   const [errors, setErrors] = useState([]);
-  // The useEffect Hook lets you fetch the coureses 
+  // The useEffect Hook lets you fetch the coureses
   // Use error handler in case an error arises
   // Set a state
   useEffect(() => {
