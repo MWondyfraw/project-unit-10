@@ -1,3 +1,6 @@
+// "Course Detail" retrievs the detail for a course from the REST API's
+// This component renders a "Delete Course"
+// This component renders a "Update Course"
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Errors from "./Errors";
@@ -6,8 +9,7 @@ export default function CourseDetail({ history, context }) {
   const [errors, setErrors] = useState([]);
   const [course, setCourse] = useState({});
 
-
-  const {emailAddress,password} = context.authenticatedUser;
+  const { emailAddress, password } = context.authenticatedUser;
 
   let { id } = useParams();
   useEffect(() => {
@@ -18,7 +20,6 @@ export default function CourseDetail({ history, context }) {
         if (courseData === null) {
           setErrors(["No Course Found!"]);
         } else {
-
           setCourse(courseData);
         }
       } catch (err) {
@@ -35,6 +36,8 @@ export default function CourseDetail({ history, context }) {
     return () => (unmounted = true);
   }, []);
 
+  // Create a deleteCourse function
+  // Redirect the user back to the home page
   const handleDelete = async (id) => {
     const user = {
       emailAddress,
@@ -42,6 +45,7 @@ export default function CourseDetail({ history, context }) {
     };
 
     // execute delete api
+
     try {
       const deleteCourse = await context.data.deleteCourse(id, user);
 

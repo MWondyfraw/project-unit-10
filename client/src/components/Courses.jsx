@@ -1,8 +1,13 @@
+// Retrieving the list of courses from the REST API's
+// This component renders a link to the "Create Course"
 import React from "react";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 export default function Courses({ context }) {
   const [errors, setErrors] = useState([]);
+  // The useEffect Hook lets you fetch the coureses 
+  // Use error handler in case an error arises
+  // Set a state
   useEffect(() => {
     context.actions
       .allCourses()
