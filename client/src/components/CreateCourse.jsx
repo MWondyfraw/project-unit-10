@@ -11,9 +11,6 @@ export default function CreateCourse({ context, history }) {
     context.authenticatedUser;
 
   const handleSubmit = (e) => {
-    // const { context } = this.props;
-    // const { name, username, password } = this.state;
-    // New user payload
     e.preventDefault();
     const course = {
       userId: id,
@@ -28,17 +25,11 @@ export default function CreateCourse({ context, history }) {
         if (errors.length) {
           setErrors(errors);
         } else {
-          // console.log(
-          //   `${username} is successfully signed up and authenticated!`
-          // );
           history.push("/");
-          console.log("course created !");
         }
       })
       .catch((err) => {
-        // handle rejected promises
         console.log(err);
-        // history.push("/error"); // push to history stack
       });
   };
 
@@ -50,8 +41,6 @@ export default function CreateCourse({ context, history }) {
           <div className="validation--errors">
             <h3>Validation Errors</h3>
             <ul>
-              {/* <li>Please provide a value for "Title"</li>
-            <li>Please provide a value for "Description"</li> */}
               {errors.map((error, i) => (
                 <li key={i}>{error}</li>
               ))}
@@ -106,7 +95,7 @@ export default function CreateCourse({ context, history }) {
           </button>
           <button
             className="button button-secondary"
-            onClick={(event) => event.preventDefault()}
+            onClick={() => history.push('/')}
           >
             Cancel
           </button>

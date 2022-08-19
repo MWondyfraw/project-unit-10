@@ -34,13 +34,13 @@ export default class Data {
   async getUser(emailAddress, password) {
     // add new parameters
 
-    console.log(emailAddress,password);
+    
     const response = await this.api(`/users`, "GET", null, true, {
       emailAddress,
       password,
     });
 
-    console.log(response);
+ 
     if (response.status === 200) {
       return response.json().then((data) => data);
     } else if (response.status === 401) {
@@ -91,9 +91,7 @@ export default class Data {
   // Create a createCourse async function
 
   async createCourse(course, user) {
-    console.log(course,user);
     const response = await this.api("/courses", "POST", course, true, user);
-    console.log(response);
     if (response.status === 201) {
       return [];
     } else if (response.status === 400) {

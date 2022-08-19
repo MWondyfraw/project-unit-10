@@ -12,7 +12,6 @@ export default function Courses({ context }) {
         } else {
           // history.push(from);
           // setCourses(courses);
-          console.log(`courses retrieved successfully!`);
         }
       })
       .catch((err) => {

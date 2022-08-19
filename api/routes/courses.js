@@ -81,7 +81,7 @@ router.get(
 router.get(
   "/:id",
   asyncHandler(async (req, res) => {
-    let course = await Course.findAll({
+    let course = await Course.findOne({
       where: {
         id: req.params.id,
       },

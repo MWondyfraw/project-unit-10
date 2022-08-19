@@ -2,27 +2,28 @@ import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Errors from "./Errors";
 import ReactMarkdown from "react-markdown";
+export default function CourseDetail({ history, context }) {
+  const [errors, setErrors] = useState([]);
+  const [course, setCourse] = useState({});
 
-export default function CourseDetail({context}) {
-  let [errors, setErrors] = useState([]);
-  let [course, setCourse] = useState([]);
 
-  //const { emailAddress, password } = context.authenticatedUser;
+  const {emailAddress,password} = context.authenticatedUser;
+
   let { id } = useParams();
-
   useEffect(() => {
     const getCourse = async () => {
       try {
         const courseData = await context.data.getCourse(id);
 
         if (courseData === null) {
-          setErrors(["No Course Found"]);
+          setErrors(["No Course Found!"]);
         } else {
-          setCourse(courseData[0]);
+
+          setCourse(courseData);
         }
       } catch (err) {
         console.log(err);
-        history.pushState("/error");
+        history.push("/error");
       }
     };
 
@@ -39,23 +40,21 @@ export default function CourseDetail({context}) {
       emailAddress,
       password,
     };
-    console.log(user);
 
+    // execute delete api
     try {
       const deleteCourse = await context.data.deleteCourse(id, user);
 
       if (deleteCourse === null) {
-        setErrors(["Could not delete course"]);
+        setErrors(["Couldn't delete course !"]);
       } else {
         history.push("/");
-        console.log("Course was Deleted Successfully");
       }
     } catch (err) {
       console.log(err);
       history.push("/error");
     }
   };
-
   return (
     <main>
       {errors.length > 0 ? (
@@ -88,7 +87,7 @@ export default function CourseDetail({context}) {
           <div className="wrap">
             <h2>Course Detail</h2>
             <form>
-              <div className="main-flex">
+              <div className="main--flex">
                 <div>
                   <h3 className="course--detail--title">Course</h3>
                   <h4 className="course--name">{course.title}</h4>
@@ -100,10 +99,10 @@ export default function CourseDetail({context}) {
                 </div>
                 <div>
                   <h3 className="course--detail--title">Estimated Time</h3>
-                  <p>{course.estimatedtime}</p>
+                  <p>{course.estimatedTime}</p>
 
                   <h3 className="course--detail--title">Materials Needed</h3>
-                  <ReactMarkdown>{course.materialsNeeeded}</ReactMarkdown>
+                  <ReactMarkdown>{course.materialsNeeded}</ReactMarkdown>
                 </div>
               </div>
             </form>

@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-export default function UpdateCourse() {
+export default function UpdateCourse({ context, history }) {
   const [errors, setErrors] = useState([]);
+  // const [course, setCourse] = useState({});
   const [title, setTitle] = useState("");
   const [estimatedTime, setEstimatedTime] = useState("");
   const [materialsNeeded, setMaterialsNeeded] = useState("");
@@ -22,11 +23,12 @@ export default function UpdateCourse() {
       try {
         const courseData = await context.data.getCourse(id);
         if (courseData === null) {
-          setErrors(["No Course Found"]);
+          setErrors(["No Course Found!"]);
         } else {
+          // history.push(from);
           setTitle(courseData.title);
           setDescription(courseData.description);
-          setEstimatedTime(courseData.EstimatedTime);
+          setEstimatedTime(courseData.estimatedTime);
           setMaterialsNeeded(courseData.materialsNeeded);
         }
       } catch (err) {
@@ -44,48 +46,53 @@ export default function UpdateCourse() {
   }, []);
 
   const handleSubmit = (e) => {
+    // const { context } = this.props;
+    // const { name, username, password } = this.state;
+    // New user payload
     e.preventDefault();
-
     const course = {
       title,
       estimatedTime,
       materialsNeeded,
       description,
     };
-
     context.data
-      .UpdateCourse(id, course, { emailAddress, password })
+      .updateCourse(id, course, { emailAddress, password })
       .then((errors) => {
         if (errors.length) {
           setErrors(errors);
         } else {
-          history.push("/error");
-          console.log("course updataed !");
+          // console.log(
+          //   `${username} is successfully signed up and authenticated!`
+          // );
+          history.push("/");
+          console.log("course updated !");
         }
       })
-
       .catch((err) => {
-        history.push("/error");
-        console.log("error", err);
+        // handle rejected promises
+        console.log(err);
+        history.push("/error"); // push to history stack
       });
   };
 
   return (
     <div className="wrap">
-      <h2>Updated Course</h2>
-      {errors.legnth > 0 ? (
-        <div className="validation-errors">
+      <h2>Update Course</h2>
+      {errors.length > 0 ? (
+        <div className="validation--errors">
           <h3>Validation Errors</h3>
           <ul>
-            {errors.map((error, index) => (
-              <li key={index}>{error}</li>
+            {/* <li>Please provide a value for "Title"</li>
+            <li>Please provide a value for "Description"</li> */}
+            {errors.map((error, i) => (
+              <li key={i}>{error}</li>
             ))}
           </ul>
         </div>
       ) : null}
-
       <form>
-        <div className="main-flex">
+        <div className="main--flex">
           <div>
             <label htmlFor="courseTitle">Course Title</label>
             <input
@@ -133,9 +140,9 @@ export default function UpdateCourse() {
         <button
             className="button button-secondary"
             onClick={() => history.push('/')}
-        >
-            Cancel 
-        </button>
+          >
+            Cancel
+          </button>
       </form>
     </div>
   );

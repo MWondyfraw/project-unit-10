@@ -81,10 +81,10 @@ export default function UserSignUp({context, history}) {
           Sign Up
         </button>
         <button
-          className="button button-secondary"
-          onClick={(event) => event.preventDefault()}
-        >
-          Cancel
+            className="button button-secondary"
+            onClick={() => history.push('/')}
+          >
+            Cancel
         </button>
       </form>
       <p>
